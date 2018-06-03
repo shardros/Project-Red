@@ -1,53 +1,55 @@
 import RPi.GPIO as GPIO
 import time
 
-logLvl = 0
+logLvl = 2
 """
-0 - All
-1 - Pin actions
-2 - Methods
-3 - none
+2 - All
+1 - Some
+0 - None
 """
 
-pins = [3, 5, 7, 11, 13, 15, 19, 21, 23, 29, 31, 33, 35, 37, 8, 10, 12, 16, 18, 22, 24, 26, 32, 36, 38, 40]
+pins = [3, 5, 7, 11, #Layer GPIO
+        13, 15, 19, 21, 23, 29, 31, 33, 35, 37, 8, 10, 12, 16, 18, 22, 24, 26, 32, 36, 38, 40]
 
-
-class Cube:
+class Led:
     """
-    Dark Class:
-    -First level hardware abstraction cube for higher level interactiosn and manipulation
-    -Allows for software based PWM for the animations
+    This Class is for use of the cube class which is its parent class
     """
-    leds = [
-        [
-            [3, 3, 3, 3],
-            [3, 3, 3, 3],
-            [3, 3, 3, 3]],
-        [
-            [3, 3, 3, 3],
-            [3, 3, 3, 3],
-            [3, 3, 3, 3]],
-        [
-            [3, 3, 3, 3],
-            [3, 3, 3, 3],
-            [3, 3, 3, 3]
-        ]]
 
-    def __init__(self):
-        print("init method of Cube class called")
-        GPIO.setmode(GPIO.BOARD)
-        for i in range(0, len(self.leds)):
-            GPIO.setup(self.leds[i], GPIO.OUT)
-            print("Pin ", i, " configured as output")
+    state = 0
 
-    def setLed(self, led, state):
+    def __init__(self, pin):
+        if logLvl > 0: print("Init method of LED class called")
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.OUT)
+        if logLvl > 0: print("Pin ", self.pin, " configured as output")
+
+    def setLed(self, state):
+        """
+        :param state: state holds the state the LED is to be self.sate is the current state
+        :return: null
+        """
         if state == (1 or "HIGH" or "high" or "ON" or "on"):
             state = 1
         elif state == (0 or "LOW" or "low" or "OFF" or "off"):
             state = 0
         else:
-            raise NameError("Invalid state set for led ", str(led))
-        GPIO.output(self.leds[led], state)
-        print("set pin ", str(led), " to ", state)
+            raise NameError("Invalid state set for pin ", str(self.pin))
+        GPIO.output(self.pin, state)
+        if logLvl == 2: print("set pin ", str(self.pin), " to ", state)
+
+
+class Cube:
+    """
+    Cube Class:
+    -Second level hardware abstraction cube for higher level interactiosn and manipulation
+    -Allows for software based PWM for the animations
+    """
+
+    def __init__(self):
+        print("init method of Cube class called")
+        GPIO.setmode(GPIO.BOARD)
+        
+
 
 
