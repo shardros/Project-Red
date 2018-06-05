@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
+refresh_rate = 24
 logLvl = 2
 """
 2 - All
@@ -19,7 +20,7 @@ NOTE the cube is defined as follows:
 ----ROW 3----
   3  2  1  0
 
-The layers are numbered bottom up
+The layers are numbered bottom up from 0
 """
 
 pins = [13, 15, 19, 21,  # 0th row
@@ -30,6 +31,7 @@ pins = [13, 15, 19, 21,  # 0th row
         24, 26, 32, 36,
         38, 40]
 
+layer_pins = [29, 31, 33, 35]
 
 class Led:
     """
@@ -37,6 +39,7 @@ class Led:
     """
 
     state = 0
+    horizontal_pin = 3
 
     def __init__(self, row, collum, layer):
         """
@@ -55,17 +58,9 @@ class Led:
         :param state: state holds the state the LED is to be self.sate is the current state
         :return: null or exception
         """
-        if state == (1 or "HIGH" or "high" or "ON" or "on"):
-            state = 1
-        elif state == (0 or "LOW" or "low" or "OFF" or "off"):
-            state = 0
-        else:
-            raise NameError("Invalid state set for pin")
-
-        state = 1
+        self.state = state
         # Set the varible that holds the state we will have to have a refresh system that goes over this an outputs all of the states
         if logLvl == 2: print("set led to ", state)
-
 
 class Cube:
     """
@@ -83,4 +78,12 @@ class Cube:
             GPIO.setup(pins[i], GPIO.OUT)
 
         # Init array of 4*4*4 with LED objects in the array
-        leds = [[[Led(i, j, k) for k in range(0, 4)] for j in range(0, 4)] for i in range(0, 4)]
+        self.leds = [[[Led(i, j, k) for k in range(0, 4)] for j in range(0, 4)] for i in range(0, 4)]
+
+    def refresh(self):
+        for i in range(0,4):
+            GPIO.output(layer_pins[i], 1)
+            for led in self.leds[(i*16):((i + 1)*16)]:
+                """Selects each layer one at a time and then selects each LED in that layer"""
+                GPIO.output(led.horizontalpin,1)
+                time.sleep(1/(refresh_rate * 4)) #Sleep for a quarter of the refresh rate
