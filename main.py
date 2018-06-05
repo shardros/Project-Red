@@ -1,7 +1,9 @@
 import RedCube
-
+import RPi.GPIO as GPIO
 
 try:
-
-
-GPIO.cleanup()
+    c = RedCube.Cube()
+    for i in range (0,len(c.leds)):
+        c.leds[i].state = 1
+except:
+    GPIO.cleanup()
