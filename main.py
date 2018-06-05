@@ -13,8 +13,8 @@ j = 3
 
 while True:
     for i in range(0 ,4):
-        GPIO.OUTPUT(layer_pins[i], 1)
-        GPIO.OUTPUT(layer_pins[j], 0)
+        GPIO.output(layer_pins[i], 1)
+        GPIO.output(layer_pins[j], 0)
         j = i
         print("moved to next layer")
         time.sleep(1)
