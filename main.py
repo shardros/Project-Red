@@ -5,7 +5,7 @@ collum_pins = []
 layer_pins = [29, 31, 33, 35]
 
 for i in range(0,4):
-    GPIO.setmode(layer_pins[i], GPIO.OUTPUT)
+    GPIO.setmode(layer_pins[i], GPIO.OUT)
 
 j = 3
 
