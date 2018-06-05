@@ -1,11 +1,18 @@
-import RedCube
 import RPi.GPIO as GPIO
+import time
 
-try:
-    c = RedCube.Cube()
-    for i in range (0,len(c.leds)):
-        c.leds[i].state = 1
-    while True:
-        c.refresh()
-except:
-    GPIO.cleanup()
+collum_pins = []
+layer_pins = [29, 31, 33, 35]
+
+for i in range(0,4):
+    GPIO.setmode(layer_pins[i], GPIO.OUTPUT)
+
+j = 3
+
+while True:
+    for i in range(0 ,4):
+        GPIO.OUTPUT(layer_pins[i], 1)
+        GPIO.OUTPUT(layer_pins[j], 0)
+        j = i
+        print("moved to next layer")
+        time.sleep(1)
