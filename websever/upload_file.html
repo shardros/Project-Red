@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <style>
+        h1 {
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 7em;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 500;
+        }
+
+        h3 {
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 5em;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 500;
+        }
+
+        p   {
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 1em;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+        }
+
+        blockquote {
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 21px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 30px;
+        }
+
+        pre {
+            font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+            font-size: 13px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: 400;
+            line-height: 18.5714px;
+        }
+
+        body {
+            text-align: center;
+            padding: 2.5%;
+        }
+
+        form {
+            display: block;
+        }
+
+        input[type="file"], input[type="submit"] {
+            display: none;
+        }
+
+        .custom-file-upload, .play {
+            padding: 16px 0;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #ff4400;
+            width: 90%;
+            display: block;
+            margin: auto;
+        }
+
+        .custom-file-upload:hover, .play:hover {
+            background-color: #ff4400; /* Green */
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Red Control Panel</h1>
+
+<form action="fileupload" method="post" enctype="multipart/form-data">
+    <label class="custom-file-upload">
+        <input type="file" accept=".mp3" name="filetoupload"/>
+        <h3>Select a MP3</h3>
+    </label>
+    <br/>
+
+    <label class="play">
+        <input type="submit" class="submit">
+        <h3>Play</h3>
+    </label>
+</form>
+</body>
+</html>
+
+
